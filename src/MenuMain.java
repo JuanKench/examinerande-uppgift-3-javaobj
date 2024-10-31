@@ -10,22 +10,27 @@ import java.util.Comparator;
 
 public class MenuMain extends JFrame {
 
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+
     public MenuMain() {
         JMenuBar menuBar = new JMenuBar();
         JPanel panel = new JPanel();
         JLabel intro = new JLabel("Välkommen till spelet 15 eller vad det än heter.");
         JLabel val = new JLabel("Vill du spela spelet eller vill du kolla vem som är bäst på det");
         JButton start = new JButton("Start");
-        JButton Highscore = new JButton("Highscore");
-        ImageIcon bild = new ImageIcon("images/bild.png");
-        JLabel label = new JLabel(bild);
+        JButton highscore = new JButton("highscore");
+        ImageIcon image = new ImageIcon("C:\\Users\\PC\\OneDrive\\Bilder\\Saved Pictures\\leif.jpg");
+        JLabel imageLabel = new JLabel(image);
+        ImageIcon icon = new ImageIcon("C:\\Users\\PC\\OneDrive\\Bilder\\Saved Pictures\\leif.jpg");
+        setIconImage(icon.getImage());
+
         JPanel NorthPanel = new JPanel();
         JPanel SouthPanel = new JPanel();
 
         setTitle("15 Spelet");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
-        setLocationRelativeTo(null);
 
         start.addActionListener(i -> {
            JFrame startFrame = new JFrame();
@@ -33,19 +38,18 @@ public class MenuMain extends JFrame {
            JButton startNormal = new JButton("Start Normal");
            JButton startCustom = new JButton("Start Custom");
 
-           startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
            startFrame.setBounds(100, 100, 450, 300);
 
            startFrame.add(startPanel);
            startPanel.add(startNormal);
            startPanel.add(startCustom);
 
-
            startFrame.setVisible(true);
            startNormal.addActionListener(a -> {
                //startNormal alex code;
            });
            startCustom.addActionListener(a -> {
+               startCustom.setEnabled(false);
                JButton begin = new JButton("Start Custom");
                JLabel height = new JLabel("vilken höjd på spelet skulle du vilja ha?");
                JTextField heightText = new JTextField(10);
@@ -60,13 +64,14 @@ public class MenuMain extends JFrame {
            });
         });
 
-        Highscore.addActionListener(i -> {
+        highscore.addActionListener(i -> {
             JFrame highScoreframe = new JFrame();
             JPanel highScorePanel = new JPanel();
-            highScoreframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JLabel text = new JLabel("här ser du dem som spelat spelet samt den bästa hittils");
             highScoreframe.setBounds(100, 100, 450, 300);
             highScoreframe.add(highScorePanel);
-            setTitle("Highscore");
+            highScorePanel.add(text);
+            setTitle("highscore");
 
             ArrayList<ScoreEntry> scores = new ArrayList<>();
 
@@ -96,6 +101,7 @@ public class MenuMain extends JFrame {
             highScoreframe.setVisible(true);
         });
 
+
         panel.setLayout(new BorderLayout());
         panel.add(NorthPanel, BorderLayout.NORTH);
         panel.add(SouthPanel, BorderLayout.SOUTH);
@@ -104,8 +110,10 @@ public class MenuMain extends JFrame {
         NorthPanel.add(intro);
         NorthPanel.add(val);
         SouthPanel.add(start);
-        SouthPanel.add(Highscore);
-        NorthPanel.add(label);
+        SouthPanel.add(highscore);
+        panel.revalidate();
+        panel.repaint();
+        panel.add(imageLabel);
 
         add(panel);
 
