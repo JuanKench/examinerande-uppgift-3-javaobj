@@ -1,0 +1,47 @@
+Gör kåden så att user får bestäm storlek på spelet ops det får inte vara = 1 rad eller column
+Gör spelet i buttons som byter plats när de klickas på
+Gör ett rutnät med tvådimensionella arrayer
+Gör så att det är lätt att se spelbärdon samt lätt att hitta number i arrayen
+Skapa en fin bild när man vinner
+Gör ett demo som auto vinner dig spelet
+
+
+    För att bli Godkänd (G) krävs följande:
+        • Ett grafiskt gränssnitt som visar de numrerade brickorna i spelet.
+        • När man klickar på en bricka bredvid den tomma platsen ska den klickade brickan byta
+          plats med ”tomma platsen”.
+        • Om en klickad bricka inte ligger bredvid tomma platsen ska de inte byta plats.
+        • Det ska finnas en knapp, ”Nytt spel”. När man klickar på denna ska alla brickorna
+          blandas i slumpmässig ordning.
+        • När spelet är löst (alla brickor ligger i nummerordning) ska ett meddelande ”Grattis, du
+          vann!” visas på skärmen.
+        • Programmet ska funka!
+        • Koden ska vara enkelt läsbar och prydligt skriven.
+        • Bägge personer ska vara med och skriva kod (förutsatt att ni gör uppgiften parvis).
+        • Koden ska laddas upp på StudentPortalen (det räcker med att 1 pers/grupp laddar upp)
+        • En länk till koden, på GitHub, ska finnas inlagd på Portalen.
+
+          För att bli Väl Godkänd (VG) måste lösningen uppfylla följande:
+        • Alla krav för att få G ska vara uppfyllda.
+        • Ni ska ha jobbat i feature-brancher i git, som successivt mergats in i master-branchen,
+          när ni skrev er kod.
+        • Vid redovisningen ska branchning och mergning framgå från historiken i git eller GitHub.
+        • Ni får bonuspoäng om ni kan berätta om vilka horribla mergekonflikter ni har haft - och
+          löst
+
+    Om vi har tid gör
+          • Lägg till funktionalitet så användaren kan välja hur många rader och kolumner spelet ska
+          ha.
+          • Lägg till funktionalitet så att användaren kan byta färger på spel och brickor.
+          • Lägg till funktionalitet så att du kan flytta flera brickor i taget. T.ex: om användaren
+          klickar på en bricka som ligger två brickor till vänster om ”tomma platsen” flyttas bägge
+          dessa brickor. Bara brickor som ligger direkt i linje med ”tomma platsen” (och inte
+          diagonalt) ska kunna flyttas på detta sätt.
+          • Lägg till funktionalitet så att ni räknar hur manga drag en användare tar på sig för at tlösa
+          spelet.
+          • Lägg till funktionalitet för att mäta hur lång tide en användare tar på sig att lösa spelet.
+          • Gör en highscore-lista över vilka användare som har löst spelet snabbast eller med
+          minst antal drag. För att detta ska vara möjligt måste ni även hålla reda på olika
+          användare, så funktionalitet för detta måste till.
+
+          använd ej Graphics2D.
