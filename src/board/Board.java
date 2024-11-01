@@ -95,13 +95,18 @@ public class Board {
                 if (content[row][column] != null) { //If there is a tile at the spot, add the (tiles) button to the container
                     Tile tile = content[row][column];
 //                    JButton button = tile.getButton();
-
-                    container.add(tile);
+                    if (tile != null) {
+                        container.add(tile);
+                    }
                 }
             }
         }
-
         container.revalidate();
+        container.repaint();
+
+        if(grid.checkWin()) {
+            winScren();
+        }
     }
 
     public JLayeredPane getPane() {
@@ -114,5 +119,27 @@ public class Board {
 
             updateContainer();
         }
+    }
+
+    public void winScren(){
+        JOptionPane.showMessageDialog(pane, "You win!");
+    }
+
+    public void autoWin() {
+        Tile[][]solution = grid.generateSolutionGrid(grid.getColumns(), grid.getRows(), this);
+
+        for (int row = 0; row < grid.getRows(); row++) {
+            for (int col = 0; col < grid.getColumns(); col++) {
+                grid.getContent()[row][col] = solution[row][col];
+            }
+        }
+        updateContainer();
+    }
+
+    public void addAutoWinButton() {
+        JButton autoWinButton = new JButton("Auto Win");
+        autoWinButton.addActionListener(e -> autoWin());
+        pane.add(autoWinButton, Integer.valueOf(2));
+        autoWinButton.setBounds(10,10,100,30);
     }
 }

@@ -12,6 +12,7 @@ public class Game {
 
     public Game(List<Path> imageLocations, int columns, int rows, String backgroundLocation) {
         board = new Board(backgroundLocation, columns, rows, imageLocations);
+        board.addAutoWinButton();
     }
 
     public Board getBoard() {

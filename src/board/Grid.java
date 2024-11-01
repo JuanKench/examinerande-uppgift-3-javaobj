@@ -1,5 +1,7 @@
 package board;
 
+import javax.swing.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,6 +117,39 @@ public class Grid {
         Tile vacantSquare = content[vacantSquareCoordinate.getX()][vacantSquareCoordinate.getY()];
 
         swap(t, vacantSquare);
+    }
+
+    public Tile[][] generateSolutionGrid(int columns, int rows, Board board) {
+        Tile[][] solutionGrid = new Tile[columns][rows];
+        int counter = 1;
+        for (int i = 0;i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (i == rows - 1 && j == columns - 1) {
+                    solutionGrid[j][i] = new Tile(0);
+                }else {
+                    ImageIcon icon = new ImageIcon("src/board/pictures/tiles/dragon/pieces/" + counter + ".png");
+                    solutionGrid[i][j] = new Tile(counter, icon, board);
+                    System.out.println(solutionGrid[i][j]);
+                    counter++;
+                }
+            }
+        }
+        return solutionGrid;
+    }
+
+    public boolean checkWin(){
+        Tile[][] grid = this.getContent();
+        int counter = 1;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                //System.out.println(grid[i][j].getNr());
+                if (grid[i][j].getNr() != counter && counter != 16){
+                    return false;
+                }
+                counter++;
+            }
+        }
+        return true;
     }
 
     public int getColumns() {

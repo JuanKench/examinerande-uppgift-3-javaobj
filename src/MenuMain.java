@@ -1,12 +1,19 @@
+import board.Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class MenuMain extends JFrame {
 
@@ -46,7 +53,22 @@ public class MenuMain extends JFrame {
 
            startFrame.setVisible(true);
            startNormal.addActionListener(a -> {
-               //startNormal alex code;
+               JFrame frame = new JFrame();
+               frame.setMaximumSize(new Dimension(800,800));
+               frame.setMinimumSize(new Dimension(800,800));
+               frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+               try (DirectoryStream<Path> temp = Files.newDirectoryStream(Paths.get("src/board/pictures/tiles/dragon/pieces"))) {
+                   List<Path> paths = new ArrayList<>();
+                   for (Path path : temp) paths.add(path);
+
+                   Game game = new Game(paths, 4, 4, "src/board/pictures/background/wood.png");
+                   frame.add(game.getBoard().getPane());
+
+                   frame.setVisible(true);
+               } catch (Exception e) {
+                   System.out.println(e.getMessage());
+               }
            });
            startCustom.addActionListener(a -> {
                startCustom.setEnabled(false);
