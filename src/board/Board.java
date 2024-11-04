@@ -2,11 +2,11 @@ package board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 
 //Must sit on a JFrame of exactly 800x800 in dimension, with a background of size 800x800 and a container of size 480x480. Tiles must share equally of the 480x480 pixels.
 public class Board {
@@ -113,16 +113,26 @@ public class Board {
         return pane;
     }
 
+    int scoreCounter;
+
     public void sweep(Tile tile) {
         if (grid.adjacentToVacantSquare(tile)) {
             grid.swapWithVacant(tile);
-
+            scoreCounter++;
             updateContainer();
         }
     }
 
     public void winScren(){
+        Scanner scanner = new Scanner(System.in);
         JOptionPane.showMessageDialog(pane, "You win!");
+        String name = JOptionPane.showInputDialog(pane, "write in youre name");
+        try(BufferedWriter br = new BufferedWriter(new FileWriter("src/highScores", true))) {
+            String line;
+            br.write(name + " - " + scoreCounter + "\n");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void autoWin() {

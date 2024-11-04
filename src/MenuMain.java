@@ -87,23 +87,17 @@ public class MenuMain extends JFrame {
         });
 
         highscore.addActionListener(i -> {
-            JFrame highScoreframe = new JFrame();
-            JPanel highScorePanel = new JPanel();
-            JLabel text = new JLabel("här ser du dem som spelat spelet samt den bästa hittils");
-            highScoreframe.setBounds(100, 100, 450, 300);
-            highScoreframe.add(highScorePanel);
-            highScorePanel.add(text);
             setTitle("highscore");
 
             ArrayList<ScoreEntry> scores = new ArrayList<>();
 
             try (
-                    BufferedReader reader = new BufferedReader(new FileReader("highscore.txt"));
+                    BufferedReader reader = new BufferedReader(new FileReader("src/highScores"));
             ) {
                 StringBuilder highScoresDisplay = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    String[] split = line.split(",");
+                    String[] split = line.split(" - ");
                     if (split.length == 2) {
                         String name = split[0];
                         int score = Integer.parseInt(split[1].toString());
@@ -120,7 +114,7 @@ public class MenuMain extends JFrame {
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(this, "Whomp whomp något gick fel");
             }
-            highScoreframe.setVisible(true);
+            setVisible(true);
         });
 
 
