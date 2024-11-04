@@ -17,9 +17,6 @@ import java.util.List;
 
 public class MenuMain extends JFrame {
 
-    private CardLayout cardLayout;
-    private JPanel mainPanel;
-
     public MenuMain() {
         JMenuBar menuBar = new JMenuBar();
         JPanel panel = new JPanel();
@@ -27,9 +24,9 @@ public class MenuMain extends JFrame {
         JLabel val = new JLabel("Vill du spela spelet eller vill du kolla vem som är bäst på det");
         JButton start = new JButton("Start");
         JButton highscore = new JButton("highscore");
-        ImageIcon image = new ImageIcon("C:\\Users\\PC\\OneDrive\\Bilder\\Saved Pictures\\leif.jpg");
+        ImageIcon image = new ImageIcon("src/board/pictures/tiles/dragon/dragon.png");
         JLabel imageLabel = new JLabel(image);
-        ImageIcon icon = new ImageIcon("C:\\Users\\PC\\OneDrive\\Bilder\\Saved Pictures\\leif.jpg");
+        ImageIcon icon = new ImageIcon("src/leif.jpg");
         setIconImage(icon.getImage());
 
         JPanel NorthPanel = new JPanel();
@@ -37,7 +34,7 @@ public class MenuMain extends JFrame {
 
         setTitle("15 Spelet");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 500, 600);
 
         start.addActionListener(i -> {
            JFrame startFrame = new JFrame();
@@ -45,18 +42,18 @@ public class MenuMain extends JFrame {
            JButton startNormal = new JButton("Start Normal");
            JButton startCustom = new JButton("Start Custom");
 
-           startFrame.setBounds(100, 100, 450, 300);
+           startFrame.setBounds(100, 100, 500, 620);
 
            startFrame.add(startPanel);
            startPanel.add(startNormal);
            startPanel.add(startCustom);
+           startPanel.add(imageLabel);
 
            startFrame.setVisible(true);
            startNormal.addActionListener(a -> {
                JFrame frame = new JFrame();
                frame.setMaximumSize(new Dimension(800,800));
                frame.setMinimumSize(new Dimension(800,800));
-               frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                try (DirectoryStream<Path> temp = Files.newDirectoryStream(Paths.get("src/board/pictures/tiles/dragon/pieces"))) {
                    List<Path> paths = new ArrayList<>();
