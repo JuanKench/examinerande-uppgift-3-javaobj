@@ -150,6 +150,14 @@ public class Grid {
         return true;
     }
 
+    public Optional<Tile> tileAtCoordinate(Coordinate coordinate) {
+        if (coordinate.getX() >= 0 && coordinate.getX() < columns && coordinate.getY() >= 0 && coordinate.getY() < rows) {
+            return Optional.of(content[coordinate.getX()][coordinate.getY()]);
+        } else {
+            return Optional.empty();
+        }
+    }
+
     public int getColumns() {
         return columns;
     }

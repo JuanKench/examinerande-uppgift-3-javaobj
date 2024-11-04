@@ -113,6 +113,14 @@ public class Board {
         return pane;
     }
 
+    public Grid getGrid() {
+        return grid;
+    }
+
+    public List<Tile> getTiles() {
+        return tiles;
+    }
+
     int scoreCounter;
 
     public void sweep(Tile tile) {
@@ -123,6 +131,15 @@ public class Board {
         }
     }
 
+//    public void sweep(Tile tile) {
+//        if (grid.adjacentToVacantSquare(tile)) {
+//            grid.swapWithVacant(tile);
+//            scoreCounter++;
+//            updateContainer();
+//        }
+//    }
+
+    //TODO: Does this not belong more to game class, instead of board class?
     public void winScren(){
         Scanner scanner = new Scanner(System.in);
         JOptionPane.showMessageDialog(pane, "You win!");
@@ -135,6 +152,7 @@ public class Board {
         }
     }
 
+    //TODO: Does this not belong more to game class, instead of board class?
     public void autoWin() {
         Tile[][]solution = grid.generateSolutionGrid(grid.getColumns(), grid.getRows(), this);
 
@@ -146,6 +164,7 @@ public class Board {
         updateContainer();
     }
 
+    //TODO: Does this not belong more to game class, instead of board class?
     public void addAutoWinButton() {
         JButton autoWinButton = new JButton("Auto Win");
         autoWinButton.addActionListener(e -> autoWin());
