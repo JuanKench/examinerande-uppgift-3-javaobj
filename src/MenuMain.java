@@ -20,12 +20,13 @@ public class MenuMain extends JFrame {
     public MenuMain() {
         JMenuBar menuBar = new JMenuBar();
         JPanel panel = new JPanel();
-        JLabel intro = new JLabel("Välkommen till spelet 15 eller vad det än heter.");
-        JLabel val = new JLabel("Vill du spela spelet eller vill du kolla vem som är bäst på det");
+        JLabel intro = new JLabel("Välkommen till vårt amazing, one of a kind 15 spel!");
+        JLabel val = new JLabel("Vill du spela spelet eller vill du kolla vem som är bäst på det?");
         JButton start = new JButton("Start");
-        JButton highscore = new JButton("highscore");
-        ImageIcon image = new ImageIcon("src/board/pictures/tiles/dragon/dragon.png");
+        JButton highscore = new JButton("Highscore");
+        ImageIcon image = new ImageIcon("src/board/pictures/frontpage/numbers_falling.png");
         JLabel imageLabel = new JLabel(image);
+        JLabel startGameLabel = new JLabel(new ImageIcon("src/board/pictures/startpage/sloth.png"));
         ImageIcon icon = new ImageIcon("src/leif.jpg");
         setIconImage(icon.getImage());
 
@@ -39,18 +40,38 @@ public class MenuMain extends JFrame {
         start.addActionListener(i -> {
            JFrame startFrame = new JFrame();
            JPanel startPanel = new JPanel();
-           JButton startNormal = new JButton("Start Normal");
-           JButton startCustom = new JButton("Start Custom");
+           JButton startDragon = new JButton("Start Dragon");
+           JButton startNumbered = new JButton("Start Numbered");
+//           JButton startCustom = new JButton("Start Custom");
 
            startFrame.setBounds(100, 100, 500, 620);
 
            startFrame.add(startPanel);
-           startPanel.add(startNormal);
-           startPanel.add(startCustom);
-           startPanel.add(imageLabel);
+           startPanel.add(startDragon);
+           startPanel.add(startNumbered);
+//           startPanel.add(startCustom);
+           startPanel.add(startGameLabel);
 
            startFrame.setVisible(true);
-           startNormal.addActionListener(a -> {
+           startNumbered.addActionListener(a -> {
+                JFrame frame = new JFrame();
+                frame.setMaximumSize(new Dimension(800,800));
+                frame.setMinimumSize(new Dimension(800,800));
+
+                try (DirectoryStream<Path> temp = Files.newDirectoryStream(Paths.get("src/board/pictures/tiles/numbers"))) {
+                    List<Path> paths = new ArrayList<>();
+                    for (Path path : temp) paths.add(path);
+
+                    Game game = new Game(paths, 4, 4, "src/board/pictures/background/wood.png");
+                    frame.add(game.getBoard().getPane());
+
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            });
+
+           startDragon.addActionListener(a -> {
                JFrame frame = new JFrame();
                frame.setMaximumSize(new Dimension(800,800));
                frame.setMinimumSize(new Dimension(800,800));
@@ -67,24 +88,10 @@ public class MenuMain extends JFrame {
                    System.out.println(e.getMessage());
                }
            });
-           startCustom.addActionListener(a -> {
-               startCustom.setEnabled(false);
-               JButton begin = new JButton("Start Custom");
-               JLabel height = new JLabel("vilken höjd på spelet skulle du vilja ha?");
-               JTextField heightText = new JTextField(10);
-               JLabel length = new JLabel("hur långt vill du att spelet ska vara?");
-               JTextField lengthText = new JTextField(10);
-               startPanel.add(height);
-               startPanel.add(heightText);
-               startPanel.add(length);
-               startPanel.add(lengthText);
-               startPanel.add(begin);
-               startFrame.setVisible(true);
-           });
         });
 
         highscore.addActionListener(i -> {
-            setTitle("highscore");
+            setTitle("Highscore");
 
             ArrayList<ScoreEntry> scores = new ArrayList<>();
 
