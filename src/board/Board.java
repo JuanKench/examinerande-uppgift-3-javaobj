@@ -15,8 +15,11 @@ public class Board {
     private final JLayeredPane pane;
     private final JLabel background;
     private final JPanel container;
+    private final List<Path> imageLocations;
 
     public Board(String backgroundLocation, int columns, int rows, List<Path> imageLocations) {
+        this.imageLocations = imageLocations;
+
         //Initializing things
         pane = new JLayeredPane();
         background = new JLabel(new ImageIcon(backgroundLocation));
@@ -105,12 +108,16 @@ public class Board {
         container.repaint();
 
         if(grid.checkWin()) {
-            winScren();
+            winScreen();
         }
     }
 
     public JLayeredPane getPane() {
         return pane;
+    }
+
+    public List<Path> getImageLocations() {
+        return imageLocations;
     }
 
     int scoreCounter;
@@ -123,7 +130,7 @@ public class Board {
         }
     }
 
-    public void winScren(){
+    public void winScreen(){
         Scanner scanner = new Scanner(System.in);
         JOptionPane.showMessageDialog(pane, "du vann!");
         String name = JOptionPane.showInputDialog(pane, "skriv dit namn");
@@ -147,9 +154,30 @@ public class Board {
     }
 
     public void addAutoWinButton() {
-        JButton autoWinButton = new JButton("Auto Win");
+        JButton autoWinButton = new JButton("Auto Win", new ImageIcon("src/board/pictures/buttons/wooden.png"));
+        autoWinButton.setForeground(Color.WHITE);
+        autoWinButton.setBorder(BorderFactory.createRaisedBevelBorder());
+        autoWinButton.setHorizontalTextPosition(SwingConstants.CENTER);
+
         autoWinButton.addActionListener(e -> autoWin());
         pane.add(autoWinButton, Integer.valueOf(2));
-        autoWinButton.setBounds(10,10,100,30);
+        autoWinButton.setBounds(55,10,100,30);
+    }
+
+    public void addShuffleButton() {
+        JButton shuffle = new JButton("Shuffle", new ImageIcon("src/board/pictures/buttons/wooden.png"));
+        shuffle.setForeground(Color.WHITE);
+        shuffle.setBorder(BorderFactory.createRaisedBevelBorder());
+        shuffle.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        shuffle.addActionListener(e -> shuffleTiles());
+        pane.add(shuffle, Integer.valueOf(2));
+        shuffle.setBounds(160,10,100,30);
+    }
+
+    public void shuffleTiles() {
+        grid.shuffle();
+        scoreCounter = 0; //Reset score counter if shuffle
+        updateContainer();
     }
 }

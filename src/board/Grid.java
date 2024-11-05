@@ -1,19 +1,24 @@
 package board;
 
 import javax.swing.*;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 //TODO: Should probably be covered by tests.
 public class Grid {
     private final int columns, rows;
     private final Tile[][] content; //TODO: Might cause problems, what is even a final array?
+    private List<Tile> tiles;
 
     public Grid(List<Tile> tiles, int columns, int rows) {
         content = setupGrid(columns, rows, tiles);
         this.columns = columns;
         this.rows = rows;
+        this.tiles = tiles;
     }
 
     //TODO: Can later change so that it applies a shuffle function when setting up, after which it ideally is checked if the shuffled result is solvable before returning the grid.
@@ -120,6 +125,8 @@ public class Grid {
     }
 
     public Tile[][] generateSolutionGrid(int columns, int rows, Board board) {
+        List<Path> imageLocations = board.getImageLocations();
+
         Tile[][] solutionGrid = new Tile[columns][rows];
         int counter = 1;
         for (int i = 0;i < rows; i++) {
@@ -127,7 +134,10 @@ public class Grid {
                 if (i == rows - 1 && j == columns - 1) {
                     solutionGrid[j][i] = new Tile(0);
                 }else {
-                    ImageIcon icon = new ImageIcon("src/board/pictures/tiles/dragon/pieces/" + counter + ".png");
+                    String wanted = String.format("%s.png", counter);
+                    Optional<Path> path = imageLocations.stream().filter(p -> p.endsWith(wanted)).findFirst();
+
+                    ImageIcon icon = new ImageIcon(path.get().toString());
                     solutionGrid[i][j] = new Tile(counter, icon, board);
                     counter++;
                 }
@@ -148,6 +158,53 @@ public class Grid {
             }
         }
         return true;
+    }
+
+    public boolean isSolvable() {
+        int[][] puzzleInput = new int[rows][columns];
+        Utility u = new Utility(columns);
+
+        for (int column = 0; column < columns; column++) {
+            for (int row = 0; row < rows; row++) {
+                puzzleInput[row][column] = content[row][column].getNr();
+            }
+        }
+
+        return u.isSolvable(puzzleInput);
+    }
+
+    public void shuffle() {
+        do {
+            shuffleGrid();
+        } while (!isSolvable());
+    }
+
+    public void shuffleGrid() {
+        Random random = new Random();
+        int nrOfShuffles = random.nextInt(0,15);
+
+        for (int i = 0; i < nrOfShuffles; i++) {
+            shuffleTile();
+        }
+    }
+
+    public void shuffleTile() {
+        Coordinate c1 = randomCoordinate();
+        Coordinate c2 = randomCoordinate();
+
+        Tile t1 = content[c1.getX()][c1.getY()];
+        Tile t2 = content[c2.getX()][c2.getY()];
+
+        content[c1.getX()][c1.getY()] = t2;
+        content[c2.getX()][c2.getY()] = t1;
+    }
+
+    public Coordinate randomCoordinate() {
+        Random random = new Random();
+        int x = random.nextInt(0, columns);
+        int y = random.nextInt(0, rows);
+
+        return new Coordinate(x, y);
     }
 
     public int getColumns() {

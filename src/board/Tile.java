@@ -15,7 +15,6 @@ public class Tile extends JButton {
         this.board = board;
 
         this.addActionListener(e -> {
-            System.out.println("Clicked tile nr: " + nr);
             board.sweep(this);
         });
     }
