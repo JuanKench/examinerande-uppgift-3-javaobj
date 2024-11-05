@@ -23,7 +23,6 @@ public class MenuMain extends JFrame {
         JPanel panel = new JPanel();
         JLabel intro = new JLabel("Välkommen till vårt amazing, one of a kind 15 spel!");
         JLabel val = new JLabel("Vill du spela spelet eller vill du kolla vem som är bäst på det?");
-        main
         JButton start = new JButton("Start");
 
         JButton highscore = new JButton("Highscore");

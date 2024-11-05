@@ -31,6 +31,7 @@ public class Board {
 
         //Setup container
         container = setupContainer(grid);
+        shuffleTiles();
 
         //Placing components correctly on the pane
         background.setBounds(0,0,800,800); //x & y starts from top left corner.
