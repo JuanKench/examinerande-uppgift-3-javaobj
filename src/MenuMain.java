@@ -18,15 +18,17 @@ import java.util.List;
 public class MenuMain extends JFrame {
 
     public MenuMain() {
+        setMaximumSize(new Dimension(500, 600));
         JMenuBar menuBar = new JMenuBar();
         JPanel panel = new JPanel();
         JLabel intro = new JLabel("Välkommen till vårt amazing, one of a kind 15 spel!");
         JLabel val = new JLabel("Vill du spela spelet eller vill du kolla vem som är bäst på det?");
         JButton start = new JButton("Start");
+
         JButton highscore = new JButton("Highscore");
-        ImageIcon image = new ImageIcon("src/board/pictures/frontpage/numbers_falling.png");
+        ImageIcon image = new ImageIcon("src/board/pictures/frontpage/epicwood.png");
         JLabel imageLabel = new JLabel(image);
-        JLabel startGameLabel = new JLabel(new ImageIcon("src/board/pictures/startpage/sloth.png"));
+        JLabel startGameLabel = new JLabel(new ImageIcon("src/board/pictures/startpage/sky.png"));
         ImageIcon icon = new ImageIcon("src/leif.jpg");
         setIconImage(icon.getImage());
 
@@ -44,7 +46,7 @@ public class MenuMain extends JFrame {
            JButton startNumbered = new JButton("Start Numbered");
 //           JButton startCustom = new JButton("Start Custom");
 
-           startFrame.setBounds(100, 100, 500, 620);
+           startFrame.setBounds(500, 100, 500, 600);
 
            startFrame.add(startPanel);
            startPanel.add(startDragon);
@@ -53,10 +55,13 @@ public class MenuMain extends JFrame {
            startPanel.add(startGameLabel);
 
            startFrame.setVisible(true);
+
            startNumbered.addActionListener(a -> {
+               startFrame.dispose(); //Causes the frame to disappear
                 JFrame frame = new JFrame();
                 frame.setMaximumSize(new Dimension(800,800));
                 frame.setMinimumSize(new Dimension(800,800));
+                frame.setBounds(500, 100, 500, 600);
 
                 try (DirectoryStream<Path> temp = Files.newDirectoryStream(Paths.get("src/board/pictures/tiles/numbers"))) {
                     List<Path> paths = new ArrayList<>();
@@ -72,9 +77,11 @@ public class MenuMain extends JFrame {
             });
 
            startDragon.addActionListener(a -> {
+               startFrame.dispose(); //Causes the frame to disappear
                JFrame frame = new JFrame();
                frame.setMaximumSize(new Dimension(800,800));
                frame.setMinimumSize(new Dimension(800,800));
+               frame.setBounds(500, 100, 500, 600);
 
                try (DirectoryStream<Path> temp = Files.newDirectoryStream(Paths.get("src/board/pictures/tiles/dragon/pieces"))) {
                    List<Path> paths = new ArrayList<>();
