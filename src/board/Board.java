@@ -132,9 +132,8 @@ public class Board {
 
     public void winScreen(){
         Scanner scanner = new Scanner(System.in);
-//        JOptionPane.showMessageDialog(pane, "You win!");
-        JOptionPane.showMessageDialog(pane, "You win!");
-        String name = JOptionPane.showInputDialog(pane, "Write in your name");
+        JOptionPane.showMessageDialog(pane, "du vann!");
+        String name = JOptionPane.showInputDialog(pane, "skriv dit namn");
         try(BufferedWriter br = new BufferedWriter(new FileWriter("src/highScores", true))) {
             String line;
             br.write(name + " - " + scoreCounter + "\n");

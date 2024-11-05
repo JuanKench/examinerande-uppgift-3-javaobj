@@ -23,6 +23,7 @@ public class MenuMain extends JFrame {
         JPanel panel = new JPanel();
         JLabel intro = new JLabel("Välkommen till vårt amazing, one of a kind 15 spel!");
         JLabel val = new JLabel("Vill du spela spelet eller vill du kolla vem som är bäst på det?");
+        main
         JButton start = new JButton("Start");
 
         JButton highscore = new JButton("Highscore");
@@ -108,16 +109,22 @@ public class MenuMain extends JFrame {
                 StringBuilder highScoresDisplay = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    String[] split = line.split(" - ");
-                    if (split.length == 2) {
-                        String name = split[0];
-                        int score = Integer.parseInt(split[1].toString());
+                    String[] splitScoreArr = line.split(" - ");
+                    if (splitScoreArr.length > 1) {
+                        String name = "";
+                        for(int a = 0; a < splitScoreArr.length - 1; a++) {
+                            name = name + splitScoreArr[a];
+                            if (a < splitScoreArr.length - 2) {
+                                name = name + " - ";
+                            };
+                        }
+                        int score = Integer.parseInt(splitScoreArr[splitScoreArr.length - 1].toString());
                         scores.add(new ScoreEntry(name, score));
                     }
                 }
                 Collections.sort(scores, Comparator.comparingInt(ScoreEntry::getScore));
                 for (ScoreEntry entry : scores) {
-                    highScoresDisplay.append(entry.getName()).append (" - ").append(entry.getScore()).append("\n");
+                    highScoresDisplay.append("Name: " + entry.getName()).append (", Score: ").append(entry.getScore()).append("\n");
                 }
                 JOptionPane.showMessageDialog(this, highScoresDisplay.toString(), "Highscores: ", JOptionPane.INFORMATION_MESSAGE);
             } catch (FileNotFoundException e) {
